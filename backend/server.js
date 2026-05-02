@@ -6,6 +6,7 @@ const app=express();
 
 app.use(express.json());
 app.use(morgan('dev'));
+app.use(express.static('public'));
 
 app.get("/api/health",(req,res)=>
 {res.status(201).json({status:"Ok"})});
@@ -25,6 +26,10 @@ app.get("/api/users",(req,res)=>{
         message:"User Fetch Successfully",
         users
     })
+})
+
+app.get("*name",(req,res)=>{
+    res.send("public/index.html",{root: __dirname});
 })
 
 app.listen(3000,()=>{
